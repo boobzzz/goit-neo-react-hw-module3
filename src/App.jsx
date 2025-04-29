@@ -1,16 +1,30 @@
 import contactList from './contacts.json';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { nanoid } from 'nanoid';
 import ContactForm from './components/ContactForm.jsx';
 import SearchBox from './components/SearchBox.jsx';
 import ContactList from './components/ContactList.jsx';
 import './App.css';
 
+const C_KEY = 'contacts';
+
 function App() {
-    const [contacts, setContacts] = useState(contactList);
+    const [contacts, setContacts] = useState(() => {
+        const savedContacts = localStorage.getItem(C_KEY);
+        if (savedContacts !== null) {
+            return JSON.parse(savedContacts);
+        }
+
+        return contactList;
+    });
     const [filter, setFilter] = useState('');
 
+    useEffect(() => {
+        localStorage.setItem(C_KEY, JSON.stringify(contacts));
+    }, [contacts]);
+
     const addContact = (newContact) => {
-        newContact.id = `id-${contacts.length + 1}`;
+        newContact.id = nanoid();
         setContacts([...contacts, newContact]);
     };
 

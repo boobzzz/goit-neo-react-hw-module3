@@ -5,8 +5,13 @@ import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 
 const ContactSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required').min(3, 'Name is too short'),
-    number: Yup.string().required('Number is required').matches(/^\d{3}-\d{2}-\d{2}$/, 'Phone number is not valid'),
+    name: Yup.string()
+        .required('Name is required')
+        .min(3, 'Name is too short')
+        .max(50, 'Name is too long'),
+    number: Yup.string()
+        .required('Number is required')
+        .matches(/^\d{3}-\d{2}-\d{2}$/, 'Phone number is not valid'),
 });
 
 export default function ContactForm({ addContact }) {

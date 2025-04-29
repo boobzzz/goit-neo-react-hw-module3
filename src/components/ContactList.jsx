@@ -1,6 +1,6 @@
-import css from './ContactList.module.css';
-import PropTypes from 'prop-types';
 import Contact from './Contact.jsx';
+import PropTypes from 'prop-types';
+import css from './ContactList.module.css';
 
 export default function ContactList({ list, removeContact }) {
     return (
@@ -10,7 +10,7 @@ export default function ContactList({ list, removeContact }) {
                     key={id}
                     id={id}
                     name={name}
-                    phone={number}
+                    number={number}
                     removeContact={removeContact}
                 />
             ))}
